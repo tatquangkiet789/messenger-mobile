@@ -6,25 +6,16 @@ import { ErrorResponse } from '@/lib/utils';
 
 type AuthState = {
     isAuthenticated: boolean;
-    currentUser: User;
+    user: User;
     isLoading: boolean;
     error: string;
 };
 
 const initialState: AuthState = {
-    // currentUser: null as any,
     error: null as any,
     isLoading: false,
     isAuthenticated: false,
-    currentUser: {
-        id: 1,
-        firstName: 'Shogun',
-        lastName: 'Raiden',
-        isVerified: true,
-        username: 'raiden.shogun',
-        userRoleName: 'USER',
-        avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1703235528/cqk0dmky4xzlhtccuhvt.jpg',
-    },
+    user: null as any,
 };
 
 const authSlice = createSlice({
@@ -56,7 +47,7 @@ const authSlice = createSlice({
             .addCase(fetchCurrentUserByAccessTokenThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isAuthenticated = true;
-                state.currentUser = action.payload.content;
+                state.user = action.payload.content as User;
             })
             .addCase(fetchCurrentUserByAccessTokenThunk.rejected, (state, action) => {
                 state.isLoading = false;

@@ -1,12 +1,10 @@
 import { Tabs } from 'expo-router';
 
-import { Ionicons } from '@expo/vector-icons';
-import { ComponentProps } from 'react';
 import Icon from '@/lib/components/Icon';
-import { ICON_NAMES, IconName } from '@/constants/icons';
+import { Icons } from '@/constants';
 
 type TabBarIconProps = {
-    name: IconName;
+    name: Icons;
     color: string;
     focused: boolean;
     size: number;
@@ -22,7 +20,7 @@ function TabBarIcon({ name, color, focused, size }: TabBarIconProps) {
 
 export default function TabLayout() {
     return (
-        <Tabs>
+        <Tabs screenOptions={{ headerShown: false }}>
             <Tabs.Screen
                 name='index'
                 options={{

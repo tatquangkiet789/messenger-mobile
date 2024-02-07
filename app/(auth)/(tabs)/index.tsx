@@ -1,32 +1,37 @@
-import { StyleSheet } from 'react-native';
-import { Text, View } from '@/components/Themed';
+import { ActivityIndicator, SafeAreaView, StyleSheet, Text } from 'react-native';
+
+import { KeyboardAvoidingViewWrapper } from '@/components';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { Suspense, useEffect, useState } from 'react';
+import { ChatList } from '@/features/chats';
+import { toggleIsNewList } from '@/store/reducers';
+import { fetchAllChatUsersThunk } from '@/features/chats/services/chatThunk';
 
 export default function TabOneScreen() {
+    const { chats } = useAppSelector((state) => state.chats);
+    const dispatch = useAppDispatch();
+    const [page, setPage] = useState(1);
+
+    useEffect(() => {
+        dispatch(toggleIsNewList(page === 1));
+        const res = dispatch(fetchAllChatUsersThunk(page));
+
+        return () => res.abort();
+    }, [page]);
+
     return (
-        // <View style={styles.container}>
-        //     <Text style={styles.title}>Tab One</Text>
-        //     <View style={styles.separator} lightColor='#eee' darkColor='rgba(255,255,255,0.1)' />
-        //     <EditScreenInfo path='app/(tabs)/index.tsx' />
-        // </View>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>ChatScreen</Text>
-        </View>
+        <SafeAreaView style={styles.container}>
+            <KeyboardAvoidingViewWrapper>
+                <Suspense fallback={<ActivityIndicator size={'small'} />}>
+                    <ChatList chats={chats} />
+                </Suspense>
+            </KeyboardAvoidingViewWrapper>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
     },
 });

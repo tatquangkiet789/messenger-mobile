@@ -1,6 +1,6 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import { COLORS } from '@/constants';
+import { COLORS, ICONS } from '@/constants';
 import { Icon } from '@/lib/components';
 
 type ButtonProps = {
@@ -8,6 +8,7 @@ type ButtonProps = {
     variant: 'primary' | 'outlined' | 'default';
     onPress: () => void;
     iconName?: string;
+    isLoading?: boolean;
 };
 
 const iconColor = {
@@ -16,15 +17,32 @@ const iconColor = {
     default: COLORS.BLACK,
 };
 
-export default function Button({ text, variant, iconName, onPress }: ButtonProps) {
+export default function Button({
+    text,
+    variant,
+    iconName,
+    onPress,
+    isLoading = false,
+}: ButtonProps) {
     function getIconColor() {
         return iconColor[variant];
     }
 
     return (
-        <TouchableOpacity onPress={onPress} style={[styles.container, styles[variant]]}>
-            {iconName ? <Icon name={iconName} size={24} color={getIconColor()} /> : null}
-            <Text style={[styles.buttonText, styles[`${variant}Text`]]}>{text}</Text>
+        <TouchableOpacity
+            onPress={onPress}
+            style={[styles.container, styles[variant]]}
+            disabled={isLoading}
+        >
+            {isLoading ? (
+                // <Icon name={ICONS.RELOAD} size={24} color={getIconColor()} />
+                <ActivityIndicator color={getIconColor()} size={'small'} />
+            ) : (
+                <>
+                    {iconName ? <Icon name={iconName} size={24} color={getIconColor()} /> : null}
+                    <Text style={[styles.buttonText, styles[`${variant}Text`]]}>{text}</Text>
+                </>
+            )}
         </TouchableOpacity>
     );
 }

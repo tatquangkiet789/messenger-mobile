@@ -1,19 +1,35 @@
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { Link } from 'expo-router';
+
 import { ANIMATED_IMAGE } from '@/assets/animations';
 import { KeyboardAvoidingViewWrapper } from '@/components';
 import { Button, Input } from '@/components/ui';
 import { COLORS } from '@/constants';
+import { LoginResponse, fetchCurrentUserByAccessTokenThunk, loginThunk } from '@/features/auth';
 import { AnimatedView } from '@/lib/components';
-import { Link } from 'expo-router';
-import { useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useAppDispatch } from '@/store/hooks';
+import { useSecureStorage } from '@/lib/hooks';
 
 export default function LoginScreen() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isShowPassword, setIsShowPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useAppDispatch();
+    const { handleSetValueToSecureStorage } = useSecureStorage('ACCESS_TOKEN');
 
     function handleSubmitLoginForm() {
-        console.log(`Submit`);
+        setIsLoading(true);
+        dispatch(loginThunk({ username, password }))
+            .unwrap()
+            .then((data: LoginResponse) => {
+                handleSetValueToSecureStorage(data.accessToken).then(() => {
+                    dispatch(fetchCurrentUserByAccessTokenThunk())
+                        .unwrap()
+                        .then(() => setIsLoading(false));
+                });
+            });
     }
 
     return (
@@ -45,10 +61,10 @@ export default function LoginScreen() {
                                 />
                                 <View style={styles.submitButtonContainer}>
                                     <Button
-                                        text='Đăng ký'
+                                        text='Đăng nhập'
                                         onPress={handleSubmitLoginForm}
                                         variant='primary'
-                                        iconName='home'
+                                        isLoading={isLoading}
                                     />
                                 </View>
                             </ScrollView>

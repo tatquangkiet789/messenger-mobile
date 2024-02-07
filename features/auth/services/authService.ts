@@ -1,23 +1,34 @@
+import { ENDPOINTS } from '@/constants';
+import { CommonResponse, MessageResponse } from '@/features/dtos';
 import { AUTH_API, PUBLIC_API } from '@/lib/utils';
 import { LoginDTO } from '../dtos/login';
-import { API_URL, ENDPOINTS } from '@/constants';
-import { CommonResponse, MessageResponse } from '@/models';
 import { LoginResponse } from '../dtos/loginResponse';
+import { user } from '@/data';
 
 // [POST] /api/v1/auth/login
-export const loginService = async (loginDTO: LoginDTO) => {
+export async function loginService(loginDTO: LoginDTO) {
     try {
-        console.log(`API_URL: `, API_URL);
-        const res = await PUBLIC_API.post(ENDPOINTS.LOGIN, loginDTO, {
-            withCredentials: true,
+        // const res = await PUBLIC_API.post(ENDPOINTS.LOGIN, loginDTO, {
+        //     withCredentials: true,
+        // });
+        // return res.data as LoginResponse;
+        const data: LoginResponse = {
+            accessToken: 'access-token',
+            statusCode: 200,
+        };
+
+        return new Promise<LoginResponse>((res, reject) => {
+            setTimeout(() => {
+                console.log(`Return access token after 1s`);
+                res(data);
+            }, 1000);
         });
-        return res.data as LoginResponse;
     } catch (error) {
         const err = error as Error;
         console.error(err);
         throw new Error(err.message);
     }
-};
+}
 
 // [POST] /api/v1/auth/register
 export const registerService = async (formData: FormData) => {
@@ -68,13 +79,22 @@ export const logoutService = async () => {
 };
 
 // [POST] /api/v1/auth/current-user
-export const fetchCurrentUserByAccessTokenService = async () => {
+export async function fetchCurrentUserByAccessTokenService() {
     try {
-        const res = await AUTH_API.post(ENDPOINTS.GET_CURRENT_USER_BY_ACCESS_TOKEN);
-        return res.data as CommonResponse;
+        // const res = await AUTH_API.post(ENDPOINTS.GET_CURRENT_USER_BY_ACCESS_TOKEN);
+        // return res.data as CommonResponse;
+        return new Promise<CommonResponse>((res, reject) => {
+            setTimeout(() => {
+                console.log(`Return user after 1s`);
+                res({
+                    content: user,
+                    statusCode: 200,
+                });
+            }, 1000);
+        });
     } catch (error) {
         const err = error as Error;
         console.error(err);
         throw new Error(err.message);
     }
-};
+}

@@ -27,7 +27,16 @@
             "output": "static",
             "favicon": "./assets/images/favicon.png"
         },
-        "plugins": ["expo-router", "expo-secure-store"],
+        "plugins": [
+            "expo-router",
+            "expo-secure-store",
+            [
+                "expo-image-picker",
+                {
+                    "photosPermission": "Bạn cần cấp quyền truy cập ảnh để có thể chia sẻ ảnh từ thư viện"
+                }
+            ]
+        ],
         "experiments": {
             "typedRoutes": true,
             "tsconfigPaths": true

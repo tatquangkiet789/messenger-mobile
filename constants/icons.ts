@@ -1,8 +1,3 @@
-type IconState = {
-    normal: string;
-    focused: string;
-};
-
 export const ICONS = {
     HOME_OUTLINE: 'home-outline',
     HOME: 'home-sharp',
@@ -25,6 +20,8 @@ export const ICONS = {
     EYE_OUTLINE: 'eye-outline',
     EYE_OFF_OUTLINE: 'eye-off-outline',
     ADD: 'add-circle-outline',
+    RELOAD: 'reload',
+    CHECK_OUTLINE: 'checkmark-circle-outline',
 };
 
 export type Icons = keyof typeof ICONS;

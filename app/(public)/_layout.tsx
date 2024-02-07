@@ -1,9 +1,11 @@
+import { COLORS } from '@/constants';
 import { Stack } from 'expo-router';
 
 export default function PublicLayout() {
     return (
-        <Stack>
-            <Stack.Screen name='index' options={{ headerTitle: 'Đăng ký' }} />
+        <Stack screenOptions={{ headerTitleAlign: 'center' }}>
+            <Stack.Screen name='index' options={{ headerTitle: 'Đăng nhập' }} />
+            <Stack.Screen name='register' options={{ headerTitle: 'Đăng ký' }} />
         </Stack>
     );
 }

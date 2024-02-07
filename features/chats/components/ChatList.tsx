@@ -16,19 +16,14 @@ export default function ChatList({ chats }: ChatListProps) {
     }
 
     return (
-        <View>
-            {/* {chats.map(({ user, latestMessage }, index) => (
-                <ChatItem key={index} user={user} latestMessage={latestMessage} />
-            ))} */}
-            <VirtualizedList
-                data={chats}
-                getItem={getItem}
-                getItemCount={getItemCount}
-                keyExtractor={(item) => item.user.id.toString()}
-                renderItem={({ item }) => (
-                    <ChatItem user={item.user} latestMessage={item.latestMessage} />
-                )}
-            />
-        </View>
+        <VirtualizedList
+            data={chats}
+            getItem={getItem}
+            getItemCount={getItemCount}
+            keyExtractor={(item) => item.user.id.toString()}
+            renderItem={({ item }) => (
+                <ChatItem user={item.user} latestMessage={item.latestMessage} />
+            )}
+        />
     );
 }
