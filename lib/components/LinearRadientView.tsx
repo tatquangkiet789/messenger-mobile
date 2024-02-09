@@ -1,17 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { ReactNode } from 'react';
 
-type LinearRadientViewProps = {};
+type LinearRadientViewProps = {
+    children: ReactNode;
+    startColor: string;
+    endColor: string;
+};
 
-export default function LinearRadientView() {
-    return (
-        <View>
-            <LinearGradient
-                // Background Linear Gradient
-                colors={['rgb(254, 44, 85)', 'rgba(254, 44, 85, 0.5)']}
-            />
-        </View>
-    );
+export default function LinearRadientView({
+    children,
+    startColor,
+    endColor,
+}: LinearRadientViewProps) {
+    return <LinearGradient colors={[startColor, endColor]}>{children}</LinearGradient>;
 }
-
-const styles = StyleSheet.create({});

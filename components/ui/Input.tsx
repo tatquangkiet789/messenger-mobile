@@ -17,6 +17,7 @@ type InputProps = {
     placeholder: string;
     value: string;
     onChangeText: (value: string) => void;
+    error?: string;
 } & (PasswordInputProps | TextInputProps);
 
 export default function Input(props: InputProps) {
@@ -44,9 +45,14 @@ export default function Input(props: InputProps) {
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             {props.label ? <Text style={styles.labelText}>{props.label}</Text> : null}
-            <View style={styles.inputContainer}>
+            <View
+                style={[
+                    styles.inputContainer,
+                    props.error ? styles.invalidInputContainer : styles.validInputContainer,
+                ]}
+            >
                 <TextInput
                     style={styles.input}
                     value={props.value}
@@ -56,29 +62,43 @@ export default function Input(props: InputProps) {
                 />
                 {renderTogglePasswordIcon()}
             </View>
+            {props.error ? <Text style={styles.errorText}>{props.error}</Text> : null}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+    container: {},
     labelText: {
         fontSize: 12,
-        marginBottom: 4,
         fontWeight: '500',
+        marginBottom: 4,
     },
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        borderWidth: 2,
         borderStyle: 'solid',
-        borderColor: COLORS.GRAY_012,
         backgroundColor: COLORS.GRAY_006,
         borderRadius: 8,
         padding: 8,
     },
+    invalidInputContainer: {
+        borderColor: 'red',
+        borderWidth: 1,
+    },
+    validInputContainer: {
+        borderWidth: 2,
+        borderColor: COLORS.GRAY_012,
+    },
     input: {
         flex: 1,
         fontSize: 16,
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 14,
+        fontWeight: '400',
+        marginTop: 4,
     },
 });

@@ -1,36 +1,58 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Link } from 'expo-router';
+import { Controller, useForm } from 'react-hook-form';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { ANIMATED_IMAGE } from '@/assets/animations';
 import { KeyboardAvoidingViewWrapper } from '@/components';
 import { Button, Input } from '@/components/ui';
 import { COLORS } from '@/constants';
-import { LoginResponse, fetchCurrentUserByAccessTokenThunk, loginThunk } from '@/features/auth';
+import {
+    LoginForm,
+    LoginResponse,
+    fetchCurrentUserByAccessTokenThunk,
+    loginSchema,
+    loginThunk,
+} from '@/features/auth';
 import { AnimatedView } from '@/lib/components';
-import { useAppDispatch } from '@/store/hooks';
 import { useSecureStorage } from '@/lib/hooks';
+import { useAppDispatch } from '@/store/hooks';
 
 export default function LoginScreen() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const [isShowPassword, setIsShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
     const dispatch = useAppDispatch();
     const { handleSetValueToSecureStorage } = useSecureStorage('ACCESS_TOKEN');
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<LoginForm>({
+        defaultValues: {
+            username: 'user1',
+            password: '123',
+        },
+        resolver: zodResolver(loginSchema),
+    });
 
-    function handleSubmitLoginForm() {
+    function handleSubmitLoginForm(data: LoginForm) {
         setIsLoading(true);
-        dispatch(loginThunk({ username, password }))
+        dispatch(loginThunk(data))
             .unwrap()
             .then((data: LoginResponse) => {
                 handleSetValueToSecureStorage(data.accessToken).then(() => {
                     dispatch(fetchCurrentUserByAccessTokenThunk())
                         .unwrap()
-                        .then(() => setIsLoading(false));
+                        .then(() => {
+                            setIsLoading(false);
+                            router.replace('/(app)/(tabs)/');
+                        });
                 });
             });
     }
+    console.log(isLoading);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -41,28 +63,43 @@ export default function LoginScreen() {
                             <ScrollView
                                 style={styles.loginForm}
                                 contentContainerStyle={{ rowGap: 16 }}
+                                showsVerticalScrollIndicator={false}
                             >
                                 <AnimatedView imageName={ANIMATED_IMAGE.WELCOME} />
-                                <Input
-                                    type='text'
-                                    value={username}
-                                    onChangeText={setUsername}
-                                    placeholder='Nhập tên tài khoản của bạn'
-                                    label='Tên tài khoản'
+                                <Controller
+                                    control={control}
+                                    render={({ field: { onChange, value } }) => (
+                                        <Input
+                                            type='text'
+                                            value={value}
+                                            onChangeText={onChange}
+                                            placeholder='Nhập tên tài khoản của bạn'
+                                            label='Tên tài khoản'
+                                            error={errors.username?.message}
+                                        />
+                                    )}
+                                    name='username'
                                 />
-                                <Input
-                                    type='password'
-                                    value={password}
-                                    onChangeText={setPassword}
-                                    placeholder='Nhập mật khẩu của bạn'
-                                    label='Mật khẩu'
-                                    isShowPassword={isShowPassword}
-                                    onToggleShowPassword={setIsShowPassword}
+                                <Controller
+                                    control={control}
+                                    render={({ field: { onChange, value } }) => (
+                                        <Input
+                                            type='password'
+                                            value={value}
+                                            onChangeText={onChange}
+                                            placeholder='Nhập mật khẩu của bạn'
+                                            label='Mật khẩu'
+                                            isShowPassword={isShowPassword}
+                                            onToggleShowPassword={setIsShowPassword}
+                                            error={errors.password?.message}
+                                        />
+                                    )}
+                                    name='password'
                                 />
                                 <View style={styles.submitButtonContainer}>
                                     <Button
                                         text='Đăng nhập'
-                                        onPress={handleSubmitLoginForm}
+                                        onPress={handleSubmit(handleSubmitLoginForm)}
                                         variant='primary'
                                         isLoading={isLoading}
                                     />
@@ -72,7 +109,7 @@ export default function LoginScreen() {
                     </View>
                     <View style={styles.registerContainer}>
                         <Text style={styles.dontHaveAccountText}>Bạn không có tài khoản?</Text>
-                        <Link style={styles.registerText} href='/(public)/register'>
+                        <Link style={styles.registerText} href='/(auth)/register'>
                             Đăng ký
                         </Link>
                     </View>

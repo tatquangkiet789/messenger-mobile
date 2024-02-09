@@ -24,4 +24,19 @@ export const ICONS = {
     CHECK_OUTLINE: 'checkmark-circle-outline',
 };
 
-export type Icons = keyof typeof ICONS;
+export const SCREEN_TAB_BAR_ICONS = {
+    home: {
+        active: ICONS.HOME,
+        inactive: ICONS.HOME_OUTLINE,
+    },
+    notification: {
+        active: ICONS.NOTIFICATION,
+        inactive: ICONS.NOTIFICATION_OUTLINE,
+    },
+    profile: {
+        active: ICONS.USER,
+        inactive: ICONS.USER_OUTLINE,
+    },
+};
+
+export type ScreenTabBarIcon = keyof typeof SCREEN_TAB_BAR_ICONS;

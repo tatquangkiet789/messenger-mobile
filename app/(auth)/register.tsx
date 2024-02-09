@@ -26,7 +26,6 @@ export default function RegisterScreen() {
 
     async function handlePickAvatar() {
         const avatar = await handlePickImage();
-        console.log(avatar);
         setAvatar(avatar!);
     }
 
@@ -114,7 +113,7 @@ export default function RegisterScreen() {
                     </View>
                     <View style={styles.loginContainer}>
                         <Text style={styles.alreadyHaveAccountText}>Bạn đã có tài khoản?</Text>
-                        <Link style={styles.loginText} href='/(public)/'>
+                        <Link style={styles.loginText} href='/(auth)/'>
                             Đăng nhập
                         </Link>
                     </View>

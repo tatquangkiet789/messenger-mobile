@@ -22,19 +22,22 @@ export const chats: Chat[] = [
             userRoleName: 'USER',
             avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1703235528/cqk0dmky4xzlhtccuhvt.jpg',
         },
-        latestMessage: { content: 'Mock data', messageTypeID: 1 },
+        latestMessage: {
+            content: 'Mock dataddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+            messageTypeID: 1,
+        },
     },
     {
         user: {
             id: 2,
-            firstName: 'Shogun',
-            lastName: 'Raiden',
+            firstName: 'Vi',
+            lastName: 'Nguyễn Thi Hà',
             isVerified: true,
-            username: 'raiden.shogun',
+            username: 'vi.nguyenthiha   ',
             userRoleName: 'USER',
-            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1703235528/cqk0dmky4xzlhtccuhvt.jpg',
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1675503302/qr5zsxkqcgc9bhvgxge3.png',
         },
-        latestMessage: { content: 'Mock data', messageTypeID: 1 },
+        latestMessage: { content: 'Mock datadddddddddddddddddddddddddddddddddd', messageTypeID: 1 },
     },
     {
         user: {

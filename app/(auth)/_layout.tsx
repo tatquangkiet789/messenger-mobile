@@ -1,10 +1,10 @@
 import { Stack } from 'expo-router';
 
-export default function AuthLayout() {
+export default function PublicLayout() {
     return (
-        <Stack>
-            {/* <Stack.Screen name='index' /> */}
-            <Stack.Screen name='(tabs)' />
+        <Stack screenOptions={{ headerTitleAlign: 'center' }}>
+            <Stack.Screen name='index' options={{ headerTitle: 'Đăng nhập' }} />
+            <Stack.Screen name='register' options={{ headerTitle: 'Đăng ký' }} />
         </Stack>
     );
 }

@@ -1,4 +1,5 @@
 import AnimatedView from './AnimatedView';
 import Icon from './Icon';
+import LinearRadientView from './LinearRadientView';
 
-export { Icon, AnimatedView };
+export { Icon, AnimatedView, LinearRadientView };

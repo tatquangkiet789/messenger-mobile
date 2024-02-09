@@ -1,4 +1,5 @@
-import { View, Text, Image, TouchableHighlight, StyleSheet } from 'react-native';
+import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { useRouter } from 'expo-router';
 
 import { COLORS } from '@/constants';
 import { LatestMessage } from '@/features/messages';
@@ -10,10 +11,15 @@ type ChatItemProps = {
 };
 
 export default function ChatItem({ user, latestMessage }: ChatItemProps) {
+    const router = useRouter();
+
     function hanleNavigateToMessageScreen() {
-        // navigation.navigate('MessageScreen', {
-        //     receiverID: user.id,
-        // });
+        router.navigate({
+            pathname: '/messages/[receiverID]',
+            params: {
+                receiverID: user.id.toString(),
+            },
+        });
     }
 
     return (
@@ -28,7 +34,9 @@ export default function ChatItem({ user, latestMessage }: ChatItemProps) {
                     <Text style={styles.name}>
                         {user.lastName} {user.firstName}
                     </Text>
-                    <Text style={styles.message}>{latestMessage.content}</Text>
+                    <Text style={styles.message} numberOfLines={1}>
+                        {latestMessage.content}
+                    </Text>
                 </View>
             </>
         </TouchableHighlight>

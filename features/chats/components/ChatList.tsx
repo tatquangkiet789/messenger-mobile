@@ -1,9 +1,10 @@
-import { View, VirtualizedList } from 'react-native';
+import { VirtualizedList } from 'react-native';
 import { Chat } from '../entities/chat';
 import ChatItem from './ChatItem';
 
 type ChatListProps = {
     chats: Chat[];
+    onChangePage: (page: number) => void;
 };
 
 export default function ChatList({ chats }: ChatListProps) {

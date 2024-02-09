@@ -1,5 +1,5 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Redirect, Slot, SplashScreen, router } from 'expo-router';
+import { Redirect, Slot, SplashScreen, router, useSegments } from 'expo-router';
 
 import { useColorScheme } from '@/components/useColorScheme';
 import { store } from '@/store';
@@ -47,22 +47,8 @@ export default function RootLayout() {
     return (
         <Provider store={store}>
             {/* <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> */}
-            <RootLayoutNav />
+            <Slot />
             {/* </ThemeProvider> */}
         </Provider>
     );
-}
-
-function RootLayoutNav() {
-    const { isAuthenticated } = useAppSelector((state) => state.auth);
-
-    useEffect(() => {
-        if (!isAuthenticated) {
-            router.replace('/(public)/');
-        } else {
-            router.replace('/(auth)/(tabs)/');
-        }
-    }, [isAuthenticated]);
-
-    return <Slot />;
 }

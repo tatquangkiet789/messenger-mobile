@@ -9,6 +9,7 @@ type ChatState = {
     isLoading: boolean;
     error: string;
     isNewList: boolean;
+    searchChatUsersKeyword: string;
 };
 
 const initialState: ChatState = {
@@ -17,6 +18,7 @@ const initialState: ChatState = {
     isLoading: false,
     error: '',
     isNewList: false,
+    searchChatUsersKeyword: '',
 };
 
 const chatSlice = createSlice({
@@ -25,6 +27,12 @@ const chatSlice = createSlice({
     reducers: {
         toggleIsNewList: (state, action: PayloadAction<boolean>) => {
             state.isNewList = action.payload;
+        },
+        updateSearchChatUsersKeyword: (state, action: PayloadAction<string>) => {
+            state.searchChatUsersKeyword = action.payload;
+        },
+        clearSearchChatUsersKeyword: (state) => {
+            state.searchChatUsersKeyword = '';
         },
     },
     extraReducers(builder) {
@@ -55,6 +63,7 @@ const chatSlice = createSlice({
     },
 });
 
-export const { toggleIsNewList } = chatSlice.actions;
+export const { toggleIsNewList, updateSearchChatUsersKeyword, clearSearchChatUsersKeyword } =
+    chatSlice.actions;
 
 export const chatReducer = chatSlice.reducer;

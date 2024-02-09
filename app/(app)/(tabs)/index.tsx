@@ -1,4 +1,4 @@
-import { ActivityIndicator, SafeAreaView, StyleSheet, Text } from 'react-native';
+import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native';
 
 import { KeyboardAvoidingViewWrapper } from '@/components';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -8,11 +8,17 @@ import { toggleIsNewList } from '@/store/reducers';
 import { fetchAllChatUsersThunk } from '@/features/chats/services/chatThunk';
 
 export default function TabOneScreen() {
-    const { chats } = useAppSelector((state) => state.chats);
+    const { chats, searchChatUsersKeyword } = useAppSelector((state) => state.chats);
     const dispatch = useAppDispatch();
     const [page, setPage] = useState(1);
+    const filteredChats = [...chats].filter(
+        (chat) =>
+            chat.user.lastName.toLowerCase().includes(searchChatUsersKeyword) ||
+            chat.user.firstName.toLowerCase().includes(searchChatUsersKeyword),
+    );
 
     useEffect(() => {
+        console.log(`Chat Screen`);
         dispatch(toggleIsNewList(page === 1));
         const res = dispatch(fetchAllChatUsersThunk(page));
 
@@ -22,8 +28,8 @@ export default function TabOneScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingViewWrapper>
-                <Suspense fallback={<ActivityIndicator size={'small'} />}>
-                    <ChatList chats={chats} />
+                <Suspense fallback={<ActivityIndicator size={'large'} />}>
+                    <ChatList chats={filteredChats} onChangePage={setPage} />
                 </Suspense>
             </KeyboardAvoidingViewWrapper>
         </SafeAreaView>
