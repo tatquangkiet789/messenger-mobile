@@ -1,5 +1,5 @@
 import { ENDPOINTS } from '@/constants';
-import { CommonResponse, MessageResponse } from '@/features/dtos';
+import { CommonResponse, MessageResponse } from '@/features/models';
 import { AUTH_API, PUBLIC_API } from '@/lib/utils';
 import { LoginDTO } from '../dtos/login';
 import { LoginResponse } from '../dtos/loginResponse';

@@ -1,29 +1,35 @@
-import { memo } from 'react';
-import { User } from '../entities/user';
-import UserCard from './UserCard';
+import { StyleSheet, VirtualizedList } from 'react-native';
+
+import { SearchUser } from '../models/user';
+import SearchResultItem from './SearchResultItem';
 
 type SearchResultListProps = {
-    users: User[];
-    isLoading: boolean;
+    searchResults: SearchUser[];
 };
 
-const SearchResultList = memo(function SearchResultList({
-    users,
-    isLoading,
-}: SearchResultListProps) {
-    return (
-        <>
-            {isLoading ? (
-                <>Loading...</>
-            ) : (
-                <>
-                    {users.map((user) => (
-                        <UserCard key={user.id} user={user} />
-                    ))}
-                </>
-            )}
-        </>
-    );
-});
+export default function SearchResultList({ searchResults }: SearchResultListProps) {
+    function getItemCount(chats: SearchUser[]) {
+        return chats.length;
+    }
 
-export default SearchResultList;
+    function getItem(data: SearchUser[], index: number) {
+        return data[index];
+    }
+
+    return (
+        <VirtualizedList
+            data={searchResults}
+            getItem={getItem}
+            getItemCount={getItemCount}
+            keyExtractor={(item) => item.user.id.toString()}
+            renderItem={({ item }) => (
+                <SearchResultItem
+                    user={item.user}
+                    isSentAddFriendNotification={item.isSentAddFriendNotification}
+                />
+            )}
+        />
+    );
+}
+
+const styles = StyleSheet.create({});

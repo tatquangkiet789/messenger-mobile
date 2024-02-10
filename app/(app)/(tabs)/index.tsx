@@ -4,7 +4,7 @@ import { KeyboardAvoidingViewWrapper } from '@/components';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Suspense, useEffect, useState } from 'react';
 import { ChatList } from '@/features/chats';
-import { toggleIsNewList } from '@/store/reducers';
+import { toggleIsNewChatList } from '@/store/reducers';
 import { fetchAllChatUsersThunk } from '@/features/chats/services/chatThunk';
 
 export default function TabOneScreen() {
@@ -18,8 +18,7 @@ export default function TabOneScreen() {
     );
 
     useEffect(() => {
-        console.log(`Chat Screen`);
-        dispatch(toggleIsNewList(page === 1));
+        dispatch(toggleIsNewChatList(page === 1));
         const res = dispatch(fetchAllChatUsersThunk(page));
 
         return () => res.abort();

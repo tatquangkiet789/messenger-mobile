@@ -25,8 +25,8 @@ export const ENDPOINTS = {
 
     // User endpoints
     FETCH_10_SUGGESTED_USERS: '/users/suggested',
-    FETCH_ALL_USERS_BY_KEYWORD: ({ keyword }: { keyword: string }) =>
-        `/users/search?q=${encodeURIComponent(keyword)}`,
+    FETCH_ALL_USERS_BY_KEYWORD: ({ keyword, page }: { keyword: string; page: number }) =>
+        `/users/search?q=${encodeURIComponent(keyword)}?page=${page}`,
     FETCH_ALL_CHAT_USERS: (page: number) => `/users/chat?page=${page}`,
     FETCH_ALL_SUGGESTED_FRIENDS: (page: number) => `/users/friends/suggested?page=${page}`,
 };

@@ -52,7 +52,6 @@ export default function LoginScreen() {
                 });
             });
     }
-    console.log(isLoading);
 
     return (
         <SafeAreaView style={styles.container}>

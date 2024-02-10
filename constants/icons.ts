@@ -15,7 +15,7 @@ export const ICONS = {
     COMMENT: 'chatbubble-ellipses-outline',
     NOTIFICATION_OUTLINE: 'notifications-outline',
     NOTIFICATION: 'notifications',
-    ARROW_BACK: 'arrow-back',
+    BACK: 'chevron-back',
     CLOSE_CIRCLE_OUTLINE: 'close-circle-outline',
     EYE_OUTLINE: 'eye-outline',
     EYE_OFF_OUTLINE: 'eye-off-outline',

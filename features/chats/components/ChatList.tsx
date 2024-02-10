@@ -1,5 +1,5 @@
 import { VirtualizedList } from 'react-native';
-import { Chat } from '../entities/chat';
+import { Chat } from '../models/chat';
 import ChatItem from './ChatItem';
 
 type ChatListProps = {

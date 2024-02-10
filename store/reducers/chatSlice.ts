@@ -25,7 +25,7 @@ const chatSlice = createSlice({
     name: 'chats',
     initialState,
     reducers: {
-        toggleIsNewList: (state, action: PayloadAction<boolean>) => {
+        toggleIsNewChatList: (state, action: PayloadAction<boolean>) => {
             state.isNewList = action.payload;
         },
         updateSearchChatUsersKeyword: (state, action: PayloadAction<string>) => {
@@ -63,7 +63,7 @@ const chatSlice = createSlice({
     },
 });
 
-export const { toggleIsNewList, updateSearchChatUsersKeyword, clearSearchChatUsersKeyword } =
+export const { toggleIsNewChatList, updateSearchChatUsersKeyword, clearSearchChatUsersKeyword } =
     chatSlice.actions;
 
 export const chatReducer = chatSlice.reducer;

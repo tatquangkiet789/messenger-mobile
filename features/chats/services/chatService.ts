@@ -1,5 +1,5 @@
 import { chats } from '@/data';
-import { PageResponse } from '@/features/dtos';
+import { PageResponse } from '@/features/models';
 
 export async function fetchAllChatUsersService(page: number) {
     try {

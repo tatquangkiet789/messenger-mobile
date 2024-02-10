@@ -1,15 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchUsersByKeywordService } from './userService';
-import { AxiosError } from '@/lib/utils/axios';
+import { fetchAllUsersByKeywordService } from './userService';
+import { ErrorResponse } from '@/lib/utils';
 
-export const fetchUsersByKeywordThunk = createAsyncThunk(
-    'users/fetchUsersByKeywordThunk',
-    async ({ keyword }: { keyword: string }, { rejectWithValue }) => {
+export const fetchAllUsersByKeywordThunk = createAsyncThunk(
+    'fetchAllUsersByKeywordThunk',
+    async ({ keyword, page }: { keyword: string; page: number }, { rejectWithValue }) => {
         try {
-            const data = await fetchUsersByKeywordService({ keyword });
+            const data = await fetchAllUsersByKeywordService({ keyword, page });
             return data;
         } catch (error) {
-            const err = error as AxiosError;
+            const err = error as ErrorResponse;
             if (!err.response) throw err;
             return rejectWithValue(err.response.data);
         }

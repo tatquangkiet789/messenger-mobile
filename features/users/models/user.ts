@@ -7,3 +7,8 @@ export type User = {
     isVerified: boolean;
     userRoleName: string;
 };
+
+export type SearchUser = {
+    user: User;
+    isSentAddFriendNotification: boolean;
+};
