@@ -22,6 +22,7 @@ export const ICONS = {
     ADD: 'add-circle-outline',
     RELOAD: 'reload',
     CHECK_OUTLINE: 'checkmark-circle-outline',
+    SEND: 'send',
 };
 
 export const SCREEN_TAB_BAR_ICONS = {

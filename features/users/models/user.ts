@@ -8,6 +8,11 @@ export type User = {
     userRoleName: string;
 };
 
+export type MessageUser = {
+    id: number;
+    avatar: string;
+};
+
 export type SearchUser = {
     user: User;
     isSentAddFriendNotification: boolean;

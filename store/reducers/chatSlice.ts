@@ -1,5 +1,6 @@
 import { Chat } from '@/features/chats';
 import { fetchAllChatUsersThunk } from '@/features/chats/services/chatThunk';
+import { User } from '@/features/users';
 import { ErrorResponse } from '@/lib/utils';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
@@ -10,6 +11,7 @@ type ChatState = {
     error: string;
     isNewList: boolean;
     searchChatUsersKeyword: string;
+    receiver: User;
 };
 
 const initialState: ChatState = {
@@ -19,6 +21,7 @@ const initialState: ChatState = {
     error: '',
     isNewList: false,
     searchChatUsersKeyword: '',
+    receiver: null as any,
 };
 
 const chatSlice = createSlice({
@@ -33,6 +36,12 @@ const chatSlice = createSlice({
         },
         clearSearchChatUsersKeyword: (state) => {
             state.searchChatUsersKeyword = '';
+        },
+        findReceiverDetailByID: (state, action: PayloadAction<number>) => {
+            const receiver = state.chats.find((chat) => chat.user.id === action.payload);
+            if (receiver) {
+                state.receiver = receiver.user;
+            }
         },
     },
     extraReducers(builder) {
@@ -63,7 +72,11 @@ const chatSlice = createSlice({
     },
 });
 
-export const { toggleIsNewChatList, updateSearchChatUsersKeyword, clearSearchChatUsersKeyword } =
-    chatSlice.actions;
+export const {
+    toggleIsNewChatList,
+    updateSearchChatUsersKeyword,
+    clearSearchChatUsersKeyword,
+    findReceiverDetailByID,
+} = chatSlice.actions;
 
 export const chatReducer = chatSlice.reducer;

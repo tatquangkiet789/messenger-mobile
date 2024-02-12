@@ -1,8 +1,302 @@
 import { Chat } from './features/chats';
+import { Message } from './features/messages';
 import { SearchUser, User } from './features/users';
 
+export const messages: Message[] = [
+    {
+        id: 154,
+        content:
+            'Testddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+        parentID: null,
+        messageTypeID: 1,
+        senderDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+        receiverDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+    },
+    {
+        id: 155,
+        content:
+            'Test5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555',
+        parentID: null,
+        messageTypeID: 1,
+        senderDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+        receiverDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+    },
+    {
+        id: 156,
+        content: 'Test',
+        parentID: null,
+        messageTypeID: 1,
+        senderDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+        receiverDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+    },
+    {
+        id: 157,
+        content:
+            'https://res.cloudinary.com/dnwauajh9/image/upload/v1694515923/keum2la8eqohbtrakezu.jpg',
+        parentID: null,
+        messageTypeID: 2,
+        senderDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+        receiverDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+    },
+    {
+        id: 158,
+        content:
+            'https://res.cloudinary.com/dnwauajh9/image/upload/v1694516046/agiwwucqtjrofcutxa4g.jpg',
+        parentID: null,
+        messageTypeID: 2,
+        senderDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+        receiverDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+    },
+    {
+        id: 159,
+        content:
+            'https://res.cloudinary.com/dnwauajh9/image/upload/v1694516116/anfoh9vtxlwj5x18lhks.jpg',
+        parentID: null,
+        messageTypeID: 2,
+        senderDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+        receiverDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+    },
+    {
+        id: 160,
+        content:
+            'https://res.cloudinary.com/dnwauajh9/image/upload/v1694516222/kfjg7v81zbyq8je4ogfe.jpg',
+        parentID: null,
+        messageTypeID: 2,
+        senderDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+        receiverDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+    },
+    {
+        id: 161,
+        content: 'Test',
+        parentID: null,
+        messageTypeID: 1,
+        senderDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+        receiverDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+    },
+    {
+        id: 162,
+        content:
+            'https://res.cloudinary.com/dnwauajh9/image/upload/v1694516400/se6puyxvtyfuqp1nmvuo.jpg',
+        parentID: null,
+        messageTypeID: 2,
+        senderDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+        receiverDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+    },
+    {
+        id: 163,
+        content:
+            'https://res.cloudinary.com/dnwauajh9/image/upload/v1694516548/ihcxzh58urgt7e6e45ty.jpg',
+        parentID: null,
+        messageTypeID: 2,
+        senderDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+        receiverDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+    },
+    {
+        id: 164,
+        content: 'Testing',
+        parentID: null,
+        messageTypeID: 1,
+        senderDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+        receiverDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+    },
+    {
+        id: 165,
+        content:
+            'https://res.cloudinary.com/dnwauajh9/image/upload/v1694517119/g9yoam6pefqcrdek7xtz.jpg',
+        parentID: null,
+        messageTypeID: 2,
+        senderDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+        receiverDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+    },
+    {
+        id: 166,
+        content:
+            'https://res.cloudinary.com/dnwauajh9/image/upload/v1694517148/d7kfajdobd2d8yld6v4x.jpg',
+        parentID: null,
+        messageTypeID: 2,
+        senderDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+        receiverDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+    },
+    {
+        id: 179,
+        content: 'Test',
+        parentID: null,
+        messageTypeID: 1,
+        senderDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+        receiverDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+    },
+    {
+        id: 180,
+        content: 'Test',
+        parentID: null,
+        messageTypeID: 1,
+        senderDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+        receiverDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+    },
+    {
+        id: 181,
+        content: 'Trả lời message có messageID là 180',
+        parentID: 180,
+        messageTypeID: 1,
+        senderDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+        receiverDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+    },
+    {
+        id: 192,
+        content: 'Trả lời message có messageID là 181',
+        parentID: 181,
+        messageTypeID: 1,
+        senderDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+        receiverDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+    },
+    {
+        id: 193,
+        content: 'Create message',
+        parentID: null,
+        messageTypeID: 1,
+        senderDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+        receiverDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+    },
+    {
+        id: 194,
+        content: 'Create child message',
+        parentID: 193,
+        messageTypeID: 1,
+        senderDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+        receiverDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+    },
+    {
+        id: 209,
+        content: 'Create message FE',
+        parentID: null,
+        messageTypeID: 1,
+        senderDetail: {
+            id: 4,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+        },
+        receiverDetail: {
+            id: 2,
+            avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+        },
+    },
+];
+
 export const user: User = {
-    id: 1,
+    id: 4,
     firstName: 'Shogun',
     lastName: 'Raiden',
     isVerified: true,

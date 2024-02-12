@@ -1,20 +1,11 @@
-import {
-    Platform,
-    Pressable,
-    SafeAreaView,
-    StatusBar,
-    StyleSheet,
-    TextInput,
-    TouchableOpacity,
-    View,
-} from 'react-native';
 import { useRouter } from 'expo-router';
+import { Pressable, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { COLORS, ICONS } from '@/constants';
-import { Icon, LinearRadientView } from '@/lib/components';
+import { Icon } from '@/lib/components';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearSearchChatUsersKeyword, updateSearchChatUsersKeyword } from '@/store/reducers';
-import CustomHeaderWrapper from './CustomHeaderWrapper';
+import CustomHeaderWrapper from '../../../components/CustomHeaderWrapper';
 
 export default function ChatScreenHeader() {
     const { searchChatUsersKeyword } = useAppSelector((state) => state.chats);

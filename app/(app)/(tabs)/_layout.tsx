@@ -1,8 +1,8 @@
 import { Tabs } from 'expo-router';
 
-import { ChatScreenHeader } from '@/components';
 import { COLORS, SCREEN_TAB_BAR_ICONS, ScreenTabBarIcon } from '@/constants';
 import Icon from '@/lib/components/Icon';
+import { ChatScreenHeader } from '@/features/chats';
 
 type TabBarIconProps = {
     name: ScreenTabBarIcon;

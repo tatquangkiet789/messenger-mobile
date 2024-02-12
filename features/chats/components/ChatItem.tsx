@@ -4,6 +4,8 @@ import { useRouter } from 'expo-router';
 import { COLORS } from '@/constants';
 import { LatestMessage } from '@/features/messages';
 import { User } from '@/features/users';
+import { useAppDispatch } from '@/store/hooks';
+import { findReceiverDetailByID } from '@/store/reducers';
 
 type ChatItemProps = {
     user: User;
@@ -12,8 +14,10 @@ type ChatItemProps = {
 
 export default function ChatItem({ user, latestMessage }: ChatItemProps) {
     const router = useRouter();
+    const dispatch = useAppDispatch();
 
     function hanleNavigateToMessageScreen() {
+        dispatch(findReceiverDetailByID(user.id));
         router.navigate({
             pathname: '/messages/[receiverID]',
             params: {
