@@ -1,3 +1,4 @@
+import useKeyboardHeight from '@/hooks/useKeyboardHeight';
 import React, { ReactNode } from 'react';
 import {
     Keyboard,
@@ -20,8 +21,9 @@ export default function KeyboardAvoidingViewWrapper({
 
     return (
         <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             style={styles.container}
+            keyboardVerticalOffset={126}
         >
             <TouchableWithoutFeedback onPress={handleDismissKeyboard}>
                 {children}

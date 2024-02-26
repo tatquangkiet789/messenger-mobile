@@ -2,6 +2,21 @@ import { Chat } from './features/chats';
 import { Message } from './features/messages';
 import { SearchUser, User } from './features/users';
 
+export const createMessage: Message = {
+    id: 200,
+    content: 'Create message',
+    parentID: null,
+    messageTypeID: 1,
+    senderDetail: {
+        id: 4,
+        avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314255/test-image_v8qyrs.jpg',
+    },
+    receiverDetail: {
+        id: 2,
+        avatar: 'https://res.cloudinary.com/dnwauajh9/image/upload/v1694314407/avatar_qdxtmv.jpg',
+    },
+};
+
 export const messages: Message[] = [
     {
         id: 154,

@@ -59,6 +59,7 @@ export default function Input(props: InputProps) {
                     onChangeText={props.onChangeText}
                     placeholder={props.placeholder}
                     secureTextEntry={props.type === 'password' && !props.isShowPassword}
+                    placeholderTextColor={COLORS.GRAY_03}
                 />
                 {renderTogglePasswordIcon()}
             </View>
@@ -80,8 +81,9 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         borderStyle: 'solid',
         backgroundColor: COLORS.GRAY_006,
-        borderRadius: 8,
-        padding: 8,
+        borderRadius: 999,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
     },
     invalidInputContainer: {
         borderColor: 'red',

@@ -3,6 +3,7 @@ import { Tabs } from 'expo-router';
 import { COLORS, SCREEN_TAB_BAR_ICONS, ScreenTabBarIcon } from '@/constants';
 import Icon from '@/lib/components/Icon';
 import { ChatScreenHeader } from '@/features/chats';
+import { ProfileScreenHeader } from '@/features/auth';
 
 type TabBarIconProps = {
     name: ScreenTabBarIcon;
@@ -47,6 +48,7 @@ export default function TabLayout() {
                     title: 'Cá nhân',
                     tabBarIcon: ({ color, focused, size }) =>
                         TabBarIcon({ color, focused, name: 'profile', size }),
+                    header: () => <ProfileScreenHeader />,
                 }}
             />
         </Tabs>

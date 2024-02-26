@@ -6,23 +6,26 @@ import { Icon } from '@/lib/components';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearSearchChatUsersKeyword, updateSearchChatUsersKeyword } from '@/store/reducers';
 import CustomHeaderWrapper from '../../../components/CustomHeaderWrapper';
+import { useDebounce } from '@/hooks';
+import { useEffect, useState } from 'react';
 
 export default function ChatScreenHeader() {
-    const { searchChatUsersKeyword } = useAppSelector((state) => state.chats);
+    const [keyword, setKeyword] = useState('');
+    const debouncedKeyword = useDebounce({ initialValue: keyword, delay: 500 });
     const dispatch = useAppDispatch();
     const router = useRouter();
 
     function handleClearSearchInput() {
-        dispatch(clearSearchChatUsersKeyword());
-    }
-
-    function handleOnChangeSearchInput(text: string) {
-        dispatch(updateSearchChatUsersKeyword(text.toLowerCase().trim()));
+        setKeyword('');
     }
 
     function handleNavigateToSearchScreen() {
         router.push('/(app)/search');
     }
+
+    useEffect(() => {
+        dispatch(updateSearchChatUsersKeyword(debouncedKeyword));
+    }, [debouncedKeyword]);
 
     return (
         <CustomHeaderWrapper>
@@ -30,18 +33,18 @@ export default function ChatScreenHeader() {
                 <Icon name={ICONS.SEARCH} color={COLORS.WHITE} size={28} />
                 <View style={styles.searchInputContainer}>
                     <TextInput
-                        value={searchChatUsersKeyword}
-                        onChangeText={handleOnChangeSearchInput}
+                        value={keyword}
+                        onChangeText={setKeyword}
                         style={styles.searchInput}
                         placeholderTextColor={COLORS.WHITE}
                         placeholder='Tìm kiếm'
                     />
-                    {searchChatUsersKeyword.length !== 0 ? (
+                    {keyword.length !== 0 ? (
                         <Pressable onPress={handleClearSearchInput}>
                             <Icon
                                 name={ICONS.CLOSE_CIRCLE_OUTLINE}
                                 color={COLORS.WHITE}
-                                size={20}
+                                size={24}
                             />
                         </Pressable>
                     ) : null}

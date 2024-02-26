@@ -23,6 +23,7 @@ export const ICONS = {
     RELOAD: 'reload',
     CHECK_OUTLINE: 'checkmark-circle-outline',
     SEND: 'send',
+    MAIL: 'mail-outline',
 };
 
 export const SCREEN_TAB_BAR_ICONS = {

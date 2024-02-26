@@ -1,13 +1,17 @@
-import { VirtualizedList } from 'react-native';
+import { ActivityIndicator, RefreshControl, VirtualizedList } from 'react-native';
 import { Chat } from '../models/chat';
 import ChatItem from './ChatItem';
+import { COLORS } from '@/constants';
 
 type ChatListProps = {
     chats: Chat[];
-    onChangePage: (page: number) => void;
+    onChangePage: () => void;
+    isLastPage: boolean;
+    onRefresh: () => void;
+    isRefreshing: boolean;
 };
 
-export default function ChatList({ chats }: ChatListProps) {
+export default function ChatList({ chats, isLastPage, onRefresh, isRefreshing }: ChatListProps) {
     function getItemCount(chats: Chat[]) {
         return chats.length;
     }
@@ -25,6 +29,19 @@ export default function ChatList({ chats }: ChatListProps) {
             renderItem={({ item }) => (
                 <ChatItem user={item.user} latestMessage={item.latestMessage} />
             )}
+            ListFooterComponent={
+                isLastPage ? null : <ActivityIndicator size={'large'} color={COLORS.PRIMARY} />
+            }
+            refreshControl={
+                <RefreshControl
+                    refreshing={isRefreshing}
+                    onRefresh={onRefresh}
+                    //iOS
+                    tintColor={COLORS.PRIMARY}
+                    //Android
+                    progressBackgroundColor={COLORS.PRIMARY}
+                />
+            }
         />
     );
 }

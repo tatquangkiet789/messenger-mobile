@@ -1,6 +1,7 @@
 export const COLORS = {
     PRIMARY: 'rgb(254, 44, 85)',
     PRIMARY_05: 'rgba(254, 44, 85, 0.5)',
+    PRIMARY_005: 'rgba(254, 44, 85, 0.05)',
     WHITE: 'rgba(255, 255, 255, 1)',
     BLACK: '#161823',
     GRAY_006: 'rgba(22, 24, 35, 0.06)',

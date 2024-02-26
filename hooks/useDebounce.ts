@@ -10,7 +10,7 @@ export default function useDebounce({ initialValue, delay }: UseDebounceProps) {
 
     useEffect(() => {
         const timeOutHandler = setTimeout(() => {
-            setDebouncedValue(initialValue.trim());
+            setDebouncedValue(initialValue.trim().toLowerCase());
         }, delay);
 
         return () => clearTimeout(timeOutHandler);

@@ -6,11 +6,15 @@ export type Message = {
     messageTypeID: number;
     senderDetail: MessageUser;
     receiverDetail: MessageUser;
-    // parentDetail: Message | null;
     parentID: number | null;
 };
 
 export type LatestMessage = {
     content: string;
     messageTypeID: number;
+};
+
+export type CreateMessage = {
+    receiverID: number;
+    content: string;
 };

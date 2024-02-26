@@ -1,35 +1,28 @@
-import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 
 import { KeyboardAvoidingViewWrapper } from '@/components';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { Suspense, useEffect, useState } from 'react';
-import { ChatList } from '@/features/chats';
-import { toggleIsNewChatList } from '@/store/reducers';
-import { fetchAllChatUsersThunk } from '@/features/chats/services/chatThunk';
+import { ChatEmpty, ChatList, ChatSkeleton, useFetchChats } from '@/features/chats';
 
 export default function TabOneScreen() {
-    const { chats, searchChatUsersKeyword } = useAppSelector((state) => state.chats);
-    const dispatch = useAppDispatch();
-    const [page, setPage] = useState(1);
-    const filteredChats = [...chats].filter(
-        (chat) =>
-            chat.user.lastName.toLowerCase().includes(searchChatUsersKeyword) ||
-            chat.user.firstName.toLowerCase().includes(searchChatUsersKeyword),
-    );
-
-    useEffect(() => {
-        dispatch(toggleIsNewChatList(page === 1));
-        const res = dispatch(fetchAllChatUsersThunk(page));
-
-        return () => res.abort();
-    }, [page]);
+    const { chats, handleChangePage, isLastPage, isLoading, handleRefreshChatList, isRefreshing } =
+        useFetchChats();
 
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingViewWrapper>
-                <Suspense fallback={<ActivityIndicator size={'large'} />}>
-                    <ChatList chats={filteredChats} onChangePage={setPage} />
-                </Suspense>
+                {isLoading && chats.length === 0 ? (
+                    <ChatSkeleton />
+                ) : chats.length === 0 ? (
+                    <ChatEmpty />
+                ) : (
+                    <ChatList
+                        chats={chats}
+                        onChangePage={handleChangePage}
+                        isLastPage={isLastPage}
+                        onRefresh={handleRefreshChatList}
+                        isRefreshing={isRefreshing}
+                    />
+                )}
             </KeyboardAvoidingViewWrapper>
         </SafeAreaView>
     );

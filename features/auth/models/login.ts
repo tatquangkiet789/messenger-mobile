@@ -16,3 +16,8 @@ export const loginSchema = z.object({
 });
 
 export type LoginForm = z.infer<typeof loginSchema>;
+
+export type LoginResponse = {
+    statusCode: number;
+    accessToken: string;
+};

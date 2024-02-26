@@ -1,43 +1,50 @@
 import { useLocalSearchParams } from 'expo-router';
-import { Suspense, useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { KeyboardAvoidingView, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { toggleIsNewMessageList } from '@/store/reducers';
 import {
     CreateMessageInput,
-    MessageItem,
     MessageList,
-    fetchAllMessagesThunk,
+    MessageSkeleton,
+    useFetchMessages,
 } from '@/features/messages';
-import { Icon } from '@/lib/components';
-import { COLORS, ICONS } from '@/constants';
+import { KeyboardAvoidingViewWrapper } from '@/components';
 
 export default function MessageScreen() {
     const { receiverID } = useLocalSearchParams<{ receiverID: string }>();
-    const [page, setPage] = useState(1);
-    const { messages } = useAppSelector((state) => state.messages);
-    const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        dispatch(toggleIsNewMessageList(page === 1));
-        const res = dispatch(fetchAllMessagesThunk({ receiverID: parseInt(receiverID), page }));
-
-        return () => res.abort();
-    }, [receiverID, page]);
+    const { messages, isLastPage, handleChangePage, isLoading } = useFetchMessages(
+        parseInt(receiverID),
+    );
 
     return (
-        <View style={styles.container}>
-            <Suspense fallback={<ActivityIndicator size={'large'} />}>
-                <MessageList messages={messages} />
-            </Suspense>
-            <CreateMessageInput />
-        </View>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.wrapper}>
+                <KeyboardAvoidingViewWrapper>
+                    <>
+                        {isLoading && messages.length === 0 ? (
+                            <MessageSkeleton />
+                        ) : messages.length === 0 ? (
+                            <Text>Hãy bắt đầu cuộc trò chuyện</Text>
+                        ) : (
+                            <MessageList
+                                messages={messages}
+                                isLastPage={isLastPage}
+                                onChangePage={handleChangePage}
+                            />
+                        )}
+                        <CreateMessageInput />
+                    </>
+                </KeyboardAvoidingViewWrapper>
+            </View>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+        backgroundColor: 'white',
+    },
+    wrapper: {
         flex: 1,
     },
     messageInputContainer: {

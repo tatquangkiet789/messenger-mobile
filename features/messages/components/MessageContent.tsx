@@ -1,5 +1,5 @@
 import { COLORS } from '@/constants';
-import { Dimensions, Image, StyleSheet, Text } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { MESSAGE_TYPES } from '../constants/constants';
 
 type MessageContentProps = {
@@ -17,12 +17,20 @@ export default function MessageContent({
     return (
         <>
             {messageTypeID === MESSAGE_TYPES.TEXT ? (
-                <Text
-                    lineBreakMode='clip'
-                    style={[styles.content, isSentByCurrentUser && styles.sentByCurrentUser]}
+                <View
+                    style={[
+                        styles.contentWrapper,
+                        ,
+                        isSentByCurrentUser && { backgroundColor: COLORS.PRIMARY },
+                    ]}
                 >
-                    {content}
-                </Text>
+                    <Text
+                        lineBreakMode='clip'
+                        style={[styles.contentText, isSentByCurrentUser && { color: COLORS.WHITE }]}
+                    >
+                        {content}
+                    </Text>
+                </View>
             ) : (
                 <Image source={{ uri: content }} style={styles.imageContent} />
             )}
@@ -31,15 +39,15 @@ export default function MessageContent({
 }
 
 const styles = StyleSheet.create({
-    content: {
+    contentWrapper: {
         backgroundColor: COLORS.GRAY_006,
         padding: 8,
         borderRadius: 8,
         maxWidth: (70 / 100) * Dimensions.get('screen').width,
     },
-    sentByCurrentUser: {
-        color: COLORS.WHITE,
-        backgroundColor: COLORS.PRIMARY,
+
+    contentText: {
+        fontSize: 16,
     },
     imageContent: {
         width: 200,

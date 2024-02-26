@@ -1,36 +1,47 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+    SafeAreaView,
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import { Link } from 'expo-router';
 import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { KeyboardAvoidingViewWrapper } from '@/components';
 import { Button, Input } from '@/components/ui';
 import { COLORS, ICONS } from '@/constants';
 import { useImagePicker } from '@/lib/hooks';
 import { Icon } from '@/lib/components';
+import { RegisterForm, registerSchema } from '@/features/auth';
 
 export default function RegisterScreen() {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [avatar, setAvatar] = useState('');
     const [isShowPassword, setIsShowPassword] = useState(false);
     const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
     const { handlePickImage } = useImagePicker();
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<RegisterForm>({
+        resolver: zodResolver(registerSchema),
+    });
 
-    function handleSubmitRegisterForm() {
-        console.log(`Submit`);
+    function handleSubmitRegisterForm(data: RegisterForm) {
+        console.log(`Register form data: `, data);
     }
 
     async function handlePickAvatar() {
         const avatar = await handlePickImage();
-        setAvatar(avatar!);
     }
 
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBar barStyle={'light-content'} />
             <KeyboardAvoidingViewWrapper>
                 <View style={styles.wrapper}>
                     <View style={styles.registerFormContainer}>
@@ -45,53 +56,117 @@ export default function RegisterScreen() {
                                 </Text>
                                 <Text style={styles.appNameText}>MessengerUI</Text>
                             </View>
-                            <Input
-                                type='text'
-                                value={lastName}
-                                onChangeText={setLastName}
-                                placeholder='Nhập họ của bạn'
-                                label='Họ của bạn'
+                            <Controller
+                                control={control}
+                                render={({ field: { onChange, value } }) => (
+                                    <Input
+                                        type='text'
+                                        value={value}
+                                        onChangeText={onChange}
+                                        placeholder='Nhập họ của bạn'
+                                        label='Họ của bạn'
+                                        error={errors.lastName?.message}
+                                    />
+                                )}
+                                name='lastName'
                             />
-                            <Input
-                                type='text'
-                                value={firstName}
-                                onChangeText={setFirstName}
-                                placeholder='Nhập tên của bạn'
-                                label='Tên của bạn'
+                            <Controller
+                                control={control}
+                                render={({ field: { onChange, value } }) => (
+                                    <Input
+                                        type='text'
+                                        value={value}
+                                        onChangeText={onChange}
+                                        placeholder='Nhập tên của bạn'
+                                        label='Tên của bạn'
+                                        error={errors.firstName?.message}
+                                    />
+                                )}
+                                name='firstName'
                             />
-                            <Input
-                                type='text'
-                                value={email}
-                                onChangeText={setEmail}
-                                placeholder='Nhập email của bạn'
-                                label='Email'
+                            <Controller
+                                control={control}
+                                render={({ field: { onChange, value } }) => (
+                                    <Input
+                                        type='text'
+                                        value={value}
+                                        onChangeText={onChange}
+                                        placeholder='Nhập email của bạn'
+                                        label='Email'
+                                        error={errors.email?.message}
+                                    />
+                                )}
+                                name='email'
                             />
-                            <Input
-                                type='text'
-                                value={username}
-                                onChangeText={setUsername}
-                                placeholder='Nhập tên tài khoản của bạn'
-                                label='Tên tài khoản'
+                            <Controller
+                                control={control}
+                                render={({ field: { onChange, value } }) => (
+                                    <Input
+                                        type='text'
+                                        value={value}
+                                        onChangeText={onChange}
+                                        placeholder='Nhập tên tài khoản của bạn'
+                                        label='Tên tài khoản'
+                                        error={errors.username?.message}
+                                    />
+                                )}
+                                name='username'
                             />
-                            <Input
-                                type='password'
-                                value={password}
-                                onChangeText={setPassword}
-                                placeholder='Nhập mật khẩu của bạn'
-                                label='Mật khẩu'
-                                isShowPassword={isShowPassword}
-                                onToggleShowPassword={setIsShowPassword}
+                            <Controller
+                                control={control}
+                                render={({ field: { onChange, value } }) => (
+                                    <Input
+                                        type='password'
+                                        value={value}
+                                        onChangeText={onChange}
+                                        placeholder='Nhập mật khẩu của bạn'
+                                        label='Mật khẩu'
+                                        isShowPassword={isShowPassword}
+                                        onToggleShowPassword={setIsShowPassword}
+                                        error={errors.password?.message}
+                                    />
+                                )}
+                                name='password'
                             />
-                            <Input
-                                type='password'
-                                value={confirmPassword}
-                                onChangeText={setConfirmPassword}
-                                placeholder='Nhập lại mật khẩu của bạn'
-                                label='Nhập lại mật khẩu'
-                                isShowPassword={isShowConfirmPassword}
-                                onToggleShowPassword={setIsShowConfirmPassword}
+                            <Controller
+                                control={control}
+                                render={({ field: { onChange, value } }) => (
+                                    <Input
+                                        type='password'
+                                        value={value}
+                                        onChangeText={onChange}
+                                        placeholder='Nhập lại mật khẩu của bạn'
+                                        label='Nhập lại mật khẩu'
+                                        isShowPassword={isShowConfirmPassword}
+                                        onToggleShowPassword={setIsShowConfirmPassword}
+                                        error={errors.confirmPassword?.message}
+                                    />
+                                )}
+                                name='confirmPassword'
                             />
-                            <TouchableOpacity
+                            <Controller
+                                control={control}
+                                render={({ field: { onChange, value } }) => (
+                                    <TouchableOpacity
+                                        onPress={async () => {
+                                            const avatar = await handlePickImage();
+                                            onChange(avatar);
+                                        }}
+                                        style={styles.imagePickerButton}
+                                    >
+                                        <Text style={styles.imagePickerText}>
+                                            Chọn ảnh đại diện
+                                        </Text>
+                                        <Icon
+                                            name={value ? ICONS.CHECK_OUTLINE : ICONS.IMAGE}
+                                            size={24}
+                                            color={COLORS.PRIMARY}
+                                        />
+                                    </TouchableOpacity>
+                                )}
+                                name='avatar'
+                            />
+                            {/* <TouchableOpacity
                                 onPress={handlePickAvatar}
                                 style={styles.imagePickerButton}
                             >
@@ -101,11 +176,11 @@ export default function RegisterScreen() {
                                     size={24}
                                     color={COLORS.PRIMARY}
                                 />
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                             <View style={styles.submitButtonContainer}>
                                 <Button
                                     text='Đăng ký'
-                                    onPress={handleSubmitRegisterForm}
+                                    onPress={handleSubmit(handleSubmitRegisterForm)}
                                     variant='primary'
                                 />
                             </View>

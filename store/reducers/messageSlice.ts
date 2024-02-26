@@ -1,4 +1,4 @@
-import { Message, fetchAllMessagesThunk } from '@/features/messages';
+import { Message, createMessageThunk, fetchAllMessagesThunk } from '@/features/messages';
 import { ErrorResponse } from '@/lib/utils';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
@@ -43,6 +43,24 @@ const messageSlice = createSlice({
                 }
             })
             .addCase(fetchAllMessagesThunk.rejected, (state, action) => {
+                state.isLoading = false;
+                const error = action.payload as ErrorResponse;
+                if (error) {
+                    state.error = error.message;
+                } else {
+                    console.error(action.error.message);
+                }
+            })
+            .addCase(createMessageThunk.pending, (state) => {
+                state.isLoading = true;
+                state.error = '';
+            })
+            .addCase(createMessageThunk.fulfilled, (state, action) => {
+                state.isLoading = false;
+                const newMessage = action.payload.content as Message;
+                state.messages = [...state.messages, newMessage];
+            })
+            .addCase(createMessageThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 const error = action.payload as ErrorResponse;
                 if (error) {

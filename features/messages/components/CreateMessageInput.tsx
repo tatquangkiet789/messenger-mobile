@@ -3,12 +3,17 @@ import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { COLORS, ICONS } from '@/constants';
 import { Icon } from '@/lib/components';
 import { useAppSelector } from '@/store/hooks';
+import { useState } from 'react';
+import useCreateMessage from '../hooks/useCreateMessage';
+import { Input } from '@/components/ui';
 
 export default function CreateMessageInput() {
     const { receiver } = useAppSelector((state) => state.chats);
+    const [content, setContent] = useState('Red');
+    const { handleCreateMessage } = useCreateMessage();
 
-    function handleCreateMessage() {
-        console.log(`Creating message`);
+    function handleSubmitCreateMessageForm() {
+        handleCreateMessage({ content, receiverID: receiver.id });
     }
 
     function handleCreateImageTypeMessage() {
@@ -20,11 +25,18 @@ export default function CreateMessageInput() {
             <TouchableOpacity onPress={handleCreateImageTypeMessage}>
                 <Icon name={ICONS.IMAGE} color={COLORS.PRIMARY} size={24} />
             </TouchableOpacity>
-            <TextInput
-                style={styles.input}
-                placeholder={`Gửi tin nhắn tới ${receiver.firstName} ${receiver.lastName}`}
-            />
-            <TouchableOpacity onPress={handleCreateMessage}>
+            <View style={styles.inputContainer}>
+                <Input
+                    type='text'
+                    placeholder={`Gửi tin nhắn tới ${receiver.firstName} ${receiver.lastName}`}
+                    value={content}
+                    onChangeText={setContent}
+                />
+            </View>
+            <TouchableOpacity
+                onPress={handleSubmitCreateMessageForm}
+                disabled={content.length === 0}
+            >
                 <Icon name={ICONS.SEND} color={COLORS.PRIMARY} size={24} />
             </TouchableOpacity>
         </View>
@@ -41,14 +53,7 @@ const styles = StyleSheet.create({
         gap: 12,
         backgroundColor: COLORS.WHITE,
     },
-    input: {
-        padding: 8,
+    inputContainer: {
         flex: 1,
-        fontSize: 16,
-        backgroundColor: COLORS.GRAY_006,
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderColor: COLORS.GRAY_012,
-        borderRadius: 999,
     },
 });

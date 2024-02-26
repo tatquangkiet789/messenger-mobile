@@ -1,6 +1,6 @@
 import { ENDPOINTS } from '@/constants';
-import { messages } from '@/data';
-import { PageResponse } from '@/features/models';
+import { createMessage, messages } from '@/data';
+import { CommonResponse, PageResponse } from '@/features/models';
 import { AUTH_API } from '@/lib/utils';
 
 export async function fetchAllMessagesService({
@@ -32,8 +32,17 @@ export async function fetchAllMessagesService({
 
 export async function createMessageService(formData: FormData) {
     try {
-        const res = await AUTH_API.post(ENDPOINTS.CREATE_MESSAGE, formData);
-        return res.data;
+        // const res = await AUTH_API.post(ENDPOINTS.CREATE_MESSAGE, formData);
+        // return res.data;
+        return new Promise<CommonResponse>((res, reject) => {
+            setTimeout(() => {
+                console.log(`Create message after 1s`);
+                res({
+                    content: createMessage,
+                    statusCode: 200,
+                });
+            }, 1000);
+        });
     } catch (error) {
         const err = error as Error;
         console.error(err);

@@ -1,13 +1,13 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
+import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 
-import CustomHeaderWrapper from './CustomHeaderWrapper';
-import { ICONS, COLORS } from '@/constants';
+import { COLORS, ICONS } from '@/constants';
+import { useDebounce } from '@/hooks';
 import { Icon } from '@/lib/components';
-import useDebounce from '@/hooks/useDebouce';
 import { useAppDispatch } from '@/store/hooks';
 import { updateSearchKeyword } from '@/store/reducers';
+import CustomHeaderWrapper from './CustomHeaderWrapper';
 
 export default function SearchScreenHeader() {
     const router = useRouter();

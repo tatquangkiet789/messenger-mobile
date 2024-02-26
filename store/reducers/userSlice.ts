@@ -1,4 +1,4 @@
-import { SearchUser, User, fetchAllUsersByKeywordThunk } from '@/features/users';
+import { SearchUser, fetchAllUsersByKeywordThunk } from '@/features/users';
 import { ErrorResponse } from '@/lib/utils';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 

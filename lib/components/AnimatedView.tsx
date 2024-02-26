@@ -4,9 +4,10 @@ import { StyleSheet, View } from 'react-native';
 
 type AnimatedViewProps = {
     imageName: any;
+    size: number;
 };
 
-export default function AnimatedView({ imageName }: AnimatedViewProps) {
+export default function AnimatedView({ imageName, size }: AnimatedViewProps) {
     const animation = useRef(null);
 
     return (
@@ -15,8 +16,8 @@ export default function AnimatedView({ imageName }: AnimatedViewProps) {
                 autoPlay={true}
                 ref={animation}
                 style={{
-                    width: 210,
-                    height: 210,
+                    width: size,
+                    height: size,
                 }}
                 // source={imageName}
                 source={imageName}

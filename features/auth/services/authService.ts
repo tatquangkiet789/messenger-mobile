@@ -1,12 +1,11 @@
 import { ENDPOINTS } from '@/constants';
 import { CommonResponse, MessageResponse } from '@/features/models';
 import { AUTH_API, PUBLIC_API } from '@/lib/utils';
-import { LoginDTO } from '../dtos/login';
-import { LoginResponse } from '../dtos/loginResponse';
 import { user } from '@/data';
+import { LoginForm, LoginResponse } from '../models/login';
 
 // [POST] /api/v1/auth/login
-export async function loginService(loginDTO: LoginDTO) {
+export async function loginService(login: LoginForm) {
     try {
         // const res = await PUBLIC_API.post(ENDPOINTS.LOGIN, loginDTO, {
         //     withCredentials: true,
@@ -33,7 +32,11 @@ export async function loginService(loginDTO: LoginDTO) {
 // [POST] /api/v1/auth/register
 export const registerService = async (formData: FormData) => {
     try {
-        const res = await PUBLIC_API.post(ENDPOINTS.REGISTER, formData);
+        const res = await PUBLIC_API.post(ENDPOINTS.REGISTER, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
         return res.data as MessageResponse;
     } catch (error) {
         const err = error as Error;

@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
 
 import { ANIMATED_IMAGE } from '@/assets/animations';
 import { KeyboardAvoidingViewWrapper } from '@/components';
@@ -55,6 +55,7 @@ export default function LoginScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBar barStyle={'light-content'} />
             <KeyboardAvoidingViewWrapper>
                 <View style={styles.wrapper}>
                     <View style={styles.loginFormContainer}>
@@ -64,7 +65,7 @@ export default function LoginScreen() {
                                 contentContainerStyle={{ rowGap: 16 }}
                                 showsVerticalScrollIndicator={false}
                             >
-                                <AnimatedView imageName={ANIMATED_IMAGE.WELCOME} />
+                                <AnimatedView imageName={ANIMATED_IMAGE.WELCOME} size={210} />
                                 <Controller
                                     control={control}
                                     render={({ field: { onChange, value } }) => (
