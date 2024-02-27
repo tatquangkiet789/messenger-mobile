@@ -30,7 +30,7 @@ export async function loginService(login: LoginForm) {
 }
 
 // [POST] /api/v1/auth/register
-export const registerService = async (formData: FormData) => {
+export async function registerService(formData: FormData) {
     try {
         const res = await PUBLIC_API.post(ENDPOINTS.REGISTER, formData, {
             headers: {
@@ -43,7 +43,7 @@ export const registerService = async (formData: FormData) => {
         console.error(err);
         throw new Error(err.message);
     }
-};
+}
 
 // [POST] /api/v1/auth/refresh-token
 export const refreshTokenService = async () => {
@@ -70,16 +70,22 @@ export const updatePasswordService = async (formData: FormData) => {
 };
 
 // [POST] /api/v1/auth/logout
-export const logoutService = async () => {
+export async function logoutService() {
     try {
-        const res = await AUTH_API.post(ENDPOINTS.LOGOUT, null);
-        return res.data as MessageResponse;
+        // const res = await AUTH_API.post(ENDPOINTS.LOGOUT, null);
+        // return res.data as MessageResponse;
+        return new Promise<MessageResponse>((res, reject) => {
+            setTimeout(() => {
+                console.log(`Logout user after 1s`);
+                res({ message: 'Đăng xuất thành công' });
+            }, 1000);
+        });
     } catch (error) {
         const err = error as Error;
         console.error(err);
         throw new Error(err.message);
     }
-};
+}
 
 // [POST] /api/v1/auth/current-user
 export async function fetchCurrentUserByAccessTokenService() {

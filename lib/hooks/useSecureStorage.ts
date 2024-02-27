@@ -1,14 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
-import * as SecureStore from 'expo-secure-store';
 import { StorageKey } from '@/constants';
+import * as SecureStore from 'expo-secure-store';
+import { useCallback } from 'react';
 
 export default function useSecureStorage(storageKey: StorageKey) {
-    const [value, setValue] = useState<unknown>();
-
     async function handleSetValueToSecureStorage(value: unknown) {
         try {
             await SecureStore.setItemAsync(storageKey, JSON.stringify(value));
-            setValue(value);
         } catch (error) {
             console.error(error);
         }
@@ -18,7 +15,7 @@ export default function useSecureStorage(storageKey: StorageKey) {
         try {
             const value = await SecureStore.getItemAsync(storageKey);
             if (value) {
-                setValue(JSON.parse(value));
+                return JSON.parse(value);
             }
         } catch (error) {
             console.error(error);
@@ -28,15 +25,14 @@ export default function useSecureStorage(storageKey: StorageKey) {
     async function handleRemoveValueFromSecureStorage() {
         try {
             await SecureStore.deleteItemAsync(storageKey);
-            setValue(null);
         } catch (error) {
             console.error(error);
         }
     }
 
-    useEffect(() => {
-        handleGetValueFromSecureStorage();
-    }, [handleGetValueFromSecureStorage]);
-
-    return { value, handleRemoveValueFromSecureStorage, handleSetValueToSecureStorage };
+    return {
+        handleGetValueFromSecureStorage,
+        handleRemoveValueFromSecureStorage,
+        handleSetValueToSecureStorage,
+    };
 }

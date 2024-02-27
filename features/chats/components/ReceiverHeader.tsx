@@ -23,7 +23,12 @@ export default function ReceiverHeader() {
     }
 
     function handleCallUser() {
-        console.log(`Handle call user`);
+        router.navigate({
+            pathname: '/calls/[receiverID]',
+            params: {
+                receiverID: receiver.id.toString(),
+            },
+        });
     }
 
     return (
@@ -54,7 +59,7 @@ const styles = StyleSheet.create({
     },
     wrapper: {
         padding: 16,
-        flexDirection: 'row',
+        // flexDirection: 'row',
         alignItems: 'center',
     },
     receiverContainer: {

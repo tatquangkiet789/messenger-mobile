@@ -8,23 +8,18 @@ import { ANIMATED_IMAGE } from '@/assets/animations';
 import { KeyboardAvoidingViewWrapper } from '@/components';
 import { Button, Input } from '@/components/ui';
 import { COLORS } from '@/constants';
-import {
-    LoginForm,
-    LoginResponse,
-    fetchCurrentUserByAccessTokenThunk,
-    loginSchema,
-    loginThunk,
-} from '@/features/auth';
+import { LoginForm, loginSchema, useLogin } from '@/features/auth';
 import { AnimatedView } from '@/lib/components';
-import { useSecureStorage } from '@/lib/hooks';
-import { useAppDispatch } from '@/store/hooks';
 
 export default function LoginScreen() {
     const [isShowPassword, setIsShowPassword] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
-    const dispatch = useAppDispatch();
-    const { handleSetValueToSecureStorage } = useSecureStorage('ACCESS_TOKEN');
+    const { isLoading, handleLogin } = useLogin({
+        onSuccess: () => {
+            console.log(`Navigating to ChatScreen`);
+            router.replace('/(app)/(tabs)/');
+        },
+    });
     const {
         control,
         handleSubmit,
@@ -38,19 +33,7 @@ export default function LoginScreen() {
     });
 
     function handleSubmitLoginForm(data: LoginForm) {
-        setIsLoading(true);
-        dispatch(loginThunk(data))
-            .unwrap()
-            .then((data: LoginResponse) => {
-                handleSetValueToSecureStorage(data.accessToken).then(() => {
-                    dispatch(fetchCurrentUserByAccessTokenThunk())
-                        .unwrap()
-                        .then(() => {
-                            setIsLoading(false);
-                            router.replace('/(app)/(tabs)/');
-                        });
-                });
-            });
+        handleLogin(data);
     }
 
     return (

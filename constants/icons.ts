@@ -24,6 +24,8 @@ export const ICONS = {
     CHECK_OUTLINE: 'checkmark-circle-outline',
     SEND: 'send',
     MAIL: 'mail-outline',
+    LOGOUT: 'log-in-outline',
+    CALL: 'call-outline',
 };
 
 export const SCREEN_TAB_BAR_ICONS = {

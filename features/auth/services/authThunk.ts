@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { LoginDTO } from '../dtos/login';
 import {
     loginService,
     registerService,
@@ -8,12 +7,13 @@ import {
     fetchCurrentUserByAccessTokenService,
 } from './authService';
 import { ErrorResponse } from '@/lib/utils';
+import { LoginForm } from '../models/login';
 
 export const loginThunk = createAsyncThunk(
     'loginThunk',
-    async (loginDTO: LoginDTO, { rejectWithValue }) => {
+    async (loginForm: LoginForm, { rejectWithValue }) => {
         try {
-            const data = await loginService(loginDTO);
+            const data = await loginService(loginForm);
             return data;
         } catch (error) {
             const err = error as ErrorResponse;

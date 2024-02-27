@@ -12,5 +12,9 @@ export default function LinearRadientView({
     startColor,
     endColor,
 }: LinearRadientViewProps) {
-    return <LinearGradient colors={[startColor, endColor]}>{children}</LinearGradient>;
+    return (
+        <LinearGradient style={{ flex: 1 }} colors={[startColor, endColor]}>
+            {children}
+        </LinearGradient>
+    );
 }
