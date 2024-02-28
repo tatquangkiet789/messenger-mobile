@@ -11,11 +11,9 @@ export default function useCurrentUser() {
 
     useEffect(() => {
         if (!accessToken) {
-            console.log(`accessToken in useEffect in useCurrentUser: `, accessToken);
             return;
         }
         if (user) {
-            console.log(`user in useEffect in useCurrentUser: `, user);
             return;
         }
 
