@@ -47,6 +47,7 @@ const authSlice = createSlice({
                 state.error = null as any;
             })
             .addCase(fetchCurrentUserByAccessTokenThunk.fulfilled, (state, action) => {
+                console.log(`fetchCurrentUserByAccessTokenThunk.fulfilled`);
                 state.isLoading = false;
                 state.user = action.payload.content as User;
                 state.isAuthenticated = true;

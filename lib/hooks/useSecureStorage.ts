@@ -16,7 +16,9 @@ export default function useSecureStorage(storageKey: StorageKey) {
             const value = await SecureStore.getItemAsync(storageKey);
             if (value) {
                 return JSON.parse(value);
+                // return value;
             }
+            // return value;
         } catch (error) {
             console.error(error);
         }
@@ -25,6 +27,8 @@ export default function useSecureStorage(storageKey: StorageKey) {
     async function handleRemoveValueFromSecureStorage() {
         try {
             await SecureStore.deleteItemAsync(storageKey);
+            const value = await SecureStore.getItemAsync(storageKey);
+            console.log(`Deleted value: `, value);
         } catch (error) {
             console.error(error);
         }

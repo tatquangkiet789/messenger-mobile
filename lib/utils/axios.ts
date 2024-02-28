@@ -16,7 +16,6 @@ export const AUTH_API = axios.create({
 const accessTokenInterceptor = async (req: InternalAxiosRequestConfig) => {
     try {
         const accessToken = await SecureStore.getItemAsync(STORAGE_KEY.ACCESS_TOKEN);
-        console.log(`accessToken in accessTokenInterceptor: `, accessToken);
         if (accessToken) {
             req.headers!['Authorization'] = `Bearer ${JSON.parse(accessToken)}`;
         }

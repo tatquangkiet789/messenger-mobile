@@ -5,13 +5,34 @@ import { ReceiverHeader } from '@/features/chats';
 import { AppProviderWrapper } from '@/providers';
 import { useAppSelector } from '@/store/hooks';
 import { useSecureStorage } from '@/lib/hooks';
-import { useAccessToken } from '@/features/auth';
+import { useAccessToken, useCurrentUser } from '@/features/auth';
+import { useEffect, useState } from 'react';
 
 export default function AuthLayout() {
+    // const accessToken = useAccessToken();
+    const { handleGetValueFromSecureStorage } = useSecureStorage('ACCESS_TOKEN');
+    // const [accessToken, setAccessToken] = useState(() => {
+    //     handleGetValueFromSecureStorage().then((data) => {
+    //         return data;
+    //     });
+    //     return '';
+    // });
     // const { isAuthenticated } = useAppSelector((state) => state.auth);
-    const accessToken = useAccessToken();
+    const { isAuthenticated } = useCurrentUser();
 
-    if (!accessToken) return <Redirect href='/(auth)/' />;
+    const [accessToken, setAccessToken] = useState('');
+
+    // useEffect(() => {
+    //     handleGetValueFromSecureStorage().then((data: any) => {
+    //         console.log(`useEffect in AuthLayout: `, data);
+    //         setAccessToken(data);
+    //     });
+    // });
+    // const accessToken = useAccessToken();
+
+    if (!isAuthenticated) {
+        return <Redirect href='/(auth)/' />;
+    }
 
     return (
         <AppProviderWrapper>

@@ -11,18 +11,8 @@ export async function fetchAllMessagesService({
     page: number;
 }) {
     try {
-        // const res = await AUTH_API.get(ENDPOINTS.FETCH_ALL_MESSAGES({ receiverID, page }));
-        // return res.data;
-        return new Promise<PageResponse>((res, reject) => {
-            setTimeout(() => {
-                console.log(`Return messages after 1s`);
-                res({
-                    content: messages,
-                    statusCode: 200,
-                    isLastPage: false,
-                });
-            }, 1000);
-        });
+        const res = await AUTH_API.get(ENDPOINTS.FETCH_ALL_MESSAGES({ receiverID, page }));
+        return res.data as PageResponse;
     } catch (error) {
         const err = error as Error;
         console.error(err);

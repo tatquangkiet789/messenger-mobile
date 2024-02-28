@@ -10,7 +10,7 @@ type MessageItemProps = {
 };
 
 export default function MessageItem({ message }: MessageItemProps) {
-    const user = useCurrentUser();
+    const { user } = useCurrentUser();
     const { id, messageTypeID, content, receiverDetail, senderDetail } = message;
     const isSentByCurrentUser = user.id === senderDetail.id;
 

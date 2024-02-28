@@ -7,21 +7,10 @@ import { LoginForm, LoginResponse } from '../models/login';
 // [POST] /api/v1/auth/login
 export async function loginService(login: LoginForm) {
     try {
-        // const res = await PUBLIC_API.post(ENDPOINTS.LOGIN, loginDTO, {
-        //     withCredentials: true,
-        // });
-        // return res.data as LoginResponse;
-        const data: LoginResponse = {
-            accessToken: 'access-token',
-            statusCode: 200,
-        };
-
-        return new Promise<LoginResponse>((res, reject) => {
-            setTimeout(() => {
-                console.log(`Return access token after 1s`);
-                res(data);
-            }, 1000);
+        const res = await PUBLIC_API.post(ENDPOINTS.LOGIN, login, {
+            withCredentials: true,
         });
+        return res.data as LoginResponse;
     } catch (error) {
         const err = error as Error;
         console.error(err);
@@ -90,17 +79,8 @@ export async function logoutService() {
 // [POST] /api/v1/auth/current-user
 export async function fetchCurrentUserByAccessTokenService() {
     try {
-        // const res = await AUTH_API.post(ENDPOINTS.GET_CURRENT_USER_BY_ACCESS_TOKEN);
-        // return res.data as CommonResponse;
-        return new Promise<CommonResponse>((res, reject) => {
-            setTimeout(() => {
-                console.log(`Return user after 1s`);
-                res({
-                    content: user,
-                    statusCode: 200,
-                });
-            }, 1000);
-        });
+        const res = await AUTH_API.post(ENDPOINTS.FETCH_CURRENT_USER_BY_ACCESS_TOKEN);
+        return res.data as CommonResponse;
     } catch (error) {
         const err = error as Error;
         console.error(err);
