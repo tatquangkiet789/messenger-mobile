@@ -51,6 +51,14 @@ export default function TabLayout() {
                     header: () => <ProfileScreenHeader />,
                 }}
             />
+            <Tabs.Screen
+                name='push'
+                options={{
+                    title: 'Thông báo',
+                    tabBarIcon: ({ color, focused, size }) =>
+                        TabBarIcon({ color, focused, name: 'notification', size }),
+                }}
+            />
         </Tabs>
     );
 }

@@ -1,5 +1,5 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Redirect, Slot, SplashScreen, router, useSegments } from 'expo-router';
+import { Redirect, Slot, SplashScreen, router, useRouter, useSegments } from 'expo-router';
 
 import { useColorScheme } from '@/components/useColorScheme';
 import { store } from '@/store';
@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useAccessToken } from '@/features/auth';
+import { useSecureStorage } from '@/lib/hooks';
 
 export {
     // Catch any errors thrown by the Layout component.
@@ -30,6 +32,8 @@ export default function RootLayout() {
         ...FontAwesome.font,
     });
     const colorScheme = useColorScheme();
+    const router = useRouter();
+    const { handleGetValueFromSecureStorage } = useSecureStorage('ACCESS_TOKEN');
 
     // Expo Router uses Error Boundaries to catch errors in the navigation tree.
     useEffect(() => {
@@ -42,10 +46,37 @@ export default function RootLayout() {
         }
     }, [loaded]);
 
+    useEffect(() => {
+        async function test() {
+            const accessToken = await handleGetValueFromSecureStorage();
+            if (!accessToken) {
+                return router.replace('/(auth)/');
+            } else {
+                return router.replace('/(app)/(tabs)/');
+            }
+        }
+
+        test();
+    }, []);
+
     if (!loaded) {
         return null;
     }
 
+    return <AppWrapper />;
+
+    // return (
+    //     <Provider store={store}>
+    //         {/* <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> */}
+    //         <QueryClientProvider client={queryClient}>
+    //             <Slot />
+    //         </QueryClientProvider>
+    //         {/* </ThemeProvider> */}
+    //     </Provider>
+    // );
+}
+
+function AppWrapper() {
     return (
         <Provider store={store}>
             {/* <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> */}

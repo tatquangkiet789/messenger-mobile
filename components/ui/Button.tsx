@@ -9,6 +9,7 @@ type ButtonProps = {
     onPress: () => void;
     iconName?: string;
     isLoading?: boolean;
+    size?: 'md' | 'sm';
 };
 
 const iconColor = {
@@ -23,6 +24,7 @@ export default function Button({
     iconName,
     onPress,
     isLoading = false,
+    size = 'md',
 }: ButtonProps) {
     function getIconColor() {
         return iconColor[variant];
@@ -31,7 +33,7 @@ export default function Button({
     return (
         <TouchableOpacity
             onPress={onPress}
-            style={[styles.container, styles[variant]]}
+            style={[styles.container, styles[variant], styles[size]]}
             disabled={isLoading}
         >
             {isLoading ? (
@@ -53,10 +55,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 16,
-        paddingHorizontal: 20,
         borderRadius: 8,
         gap: 8,
+    },
+    md: {
+        paddingVertical: 16,
+        paddingHorizontal: 20,
+    },
+    sm: {
+        padding: 8,
     },
     buttonText: {
         fontWeight: '500',

@@ -1,30 +1,10 @@
-import { Animated, StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useRef } from 'react';
 import { COLORS } from '@/constants';
+import { useSkeletonAnimation } from '@/hooks';
+import { Animated, StyleSheet, View } from 'react-native';
 
 export default function UserInfoItemSkeleton() {
-    const opacity = useRef(new Animated.Value(0.4));
+    const opacity = useSkeletonAnimation();
 
-    useEffect(() => {
-        const animation = Animated.loop(
-            Animated.sequence([
-                Animated.timing(opacity.current, {
-                    toValue: 1,
-                    useNativeDriver: true,
-                    duration: 500,
-                }),
-                Animated.timing(opacity.current, {
-                    toValue: 0.4,
-                    useNativeDriver: true,
-                    duration: 1000,
-                }),
-            ]),
-        );
-
-        animation.start();
-
-        return () => animation.stop();
-    }, [opacity]);
     return (
         <Animated.View style={[styles.userInfoContainer, { opacity: opacity.current }]}>
             <View style={styles.avatarContainer}>

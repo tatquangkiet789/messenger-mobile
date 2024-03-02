@@ -1,6 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { authReducer, chatReducer, messageReducer, userReducer } from './reducers';
+import {
+    authReducer,
+    chatReducer,
+    messageReducer,
+    notificationReducer,
+    userReducer,
+} from './reducers';
 
 export const store = configureStore({
     reducer: {
@@ -8,6 +14,7 @@ export const store = configureStore({
         chats: chatReducer,
         users: userReducer,
         messages: messageReducer,
+        notifications: notificationReducer,
     },
 });
 

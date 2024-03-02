@@ -25,8 +25,6 @@ export default function useFetchChats() {
             console.log(`Handle refresh chat list`);
             setPage(1);
             setIsRefreshing(true);
-            dispatch(toggleIsNewChatList(true));
-            dispatch(fetchAllChatUsersThunk(1));
         } catch (error) {
             console.error(error);
         } finally {

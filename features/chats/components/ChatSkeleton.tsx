@@ -1,30 +1,10 @@
-import { Animated, ScrollView, StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useRef } from 'react';
+import { Animated, ScrollView, StyleSheet, View } from 'react-native';
 import { COLORS } from '@/constants';
+import { useSkeletonAnimation } from '@/hooks';
 
 export default function ChatSkeleton() {
-    const opacity = useRef(new Animated.Value(0.4));
+    const opacity = useSkeletonAnimation();
 
-    useEffect(() => {
-        const animation = Animated.loop(
-            Animated.sequence([
-                Animated.timing(opacity.current, {
-                    toValue: 1,
-                    useNativeDriver: true,
-                    duration: 500,
-                }),
-                Animated.timing(opacity.current, {
-                    toValue: 0.4,
-                    useNativeDriver: true,
-                    duration: 1000,
-                }),
-            ]),
-        );
-
-        animation.start();
-
-        return () => animation.stop();
-    }, [opacity]);
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             {Array(10)

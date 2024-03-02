@@ -1,4 +1,4 @@
-import { Redirect, Stack } from 'expo-router';
+import { Redirect, Stack, useRouter } from 'expo-router';
 
 import { SearchScreenHeader } from '@/components';
 import { ReceiverHeader } from '@/features/chats';
@@ -20,19 +20,17 @@ export default function AuthLayout() {
     // const { isAuthenticated } = useAppSelector((state) => state.auth);
     const { isAuthenticated } = useCurrentUser();
 
-    const [accessToken, setAccessToken] = useState('');
+    const router = useRouter();
 
     // useEffect(() => {
-    //     handleGetValueFromSecureStorage().then((data: any) => {
-    //         console.log(`useEffect in AuthLayout: `, data);
-    //         setAccessToken(data);
-    //     });
-    // });
-    // const accessToken = useAccessToken();
+    //     async function test() {
+    //         const accessToken = await handleGetValueFromSecureStorage();
+    //         if (!accessToken) return router.replace('/(auth)/');
+    //     }
 
-    if (!isAuthenticated) {
-        return <Redirect href='/(auth)/' />;
-    }
+    //     test();
+    // }, []);
+    // const accessToken = useAccessToken();
 
     return (
         <AppProviderWrapper>

@@ -14,14 +14,17 @@
         },
         "assetBundlePatterns": ["**/*"],
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": true,
+            "bundleIdentifier": "com.kiettq1009.messengermobile"
         },
         "android": {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/images/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
             },
-            "softwareKeyboardLayout": "pan"
+            "softwareKeyboardLayout": "pan",
+            "permissions": ["android.permission.RECORD_AUDIO"],
+            "package": "com.kiettq1009.messengermobile"
         },
         "web": {
             "bundler": "metro",
@@ -41,6 +44,14 @@
         "experiments": {
             "typedRoutes": true,
             "tsconfigPaths": true
+        },
+        "extra": {
+            "router": {
+                "origin": false
+            },
+            "eas": {
+                "projectId": "34a2a370-c3b0-47f9-ab1e-b0bfa944ab6c"
+            }
         }
     }
 }
